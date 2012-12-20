@@ -1,0 +1,5 @@
+Name: "Dragon"
+Components:
+    - org.spout.engine.entity.component.EntityRendererComponent
+Data:
+    Model: model://Streamland/entities/dragon/dragon.spm
