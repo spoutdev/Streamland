@@ -133,7 +133,7 @@
 							<properties>
 								<name>${project.name}</name>
 								<url>${project.organization.url}</url>
-								<copyright>Copyright (c) ${project.inceptionYear}-${currentYear}, ${project.organization.name}</copyright>
+								<copyright>Copyright (c) ${project.inceptionYear}, ${project.organization.name}</copyright>
 							</properties>
 							<quiet>true</quiet>
 							<encoding>UTF-8</encoding>
