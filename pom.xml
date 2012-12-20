@@ -9,7 +9,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2012</inceptionYear>
-	<description></description>
+	<description> A simple game for Spout</description>
 
 	<!-- Build properties -->
 	<properties>
@@ -17,6 +17,7 @@
 		<currentYear>2012</currentYear>
 		<spoutVersion>dev-SNAPSHOT</spoutVersion>
 		<buildNumber>0</buildNumber>
+		<mainClass>org.spout.droplet.streamland.StreamlandPlugin</mainClass>
 	</properties>
 
 	<!-- Company information -->

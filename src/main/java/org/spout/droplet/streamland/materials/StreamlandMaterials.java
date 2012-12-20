@@ -24,39 +24,15 @@
  * License and see <http://spout.in/licensev1> for the full license, including
  * the MIT license.
  */
-package org.spout.droplet.streamland;
+package org.spout.droplet.streamland.materials;
 
-import org.spout.api.Engine;
-import org.spout.api.Spout;
-import org.spout.api.geo.World;
-import org.spout.api.geo.discrete.Point;
-import org.spout.api.geo.discrete.Transform;
-import org.spout.api.math.Quaternion;
-import org.spout.api.math.Vector3;
-import org.spout.api.plugin.CommonPlugin;
-import org.spout.droplet.streamland.generator.StreamlandFlatGenerator;
+import org.spout.api.material.BlockMaterial;
+import org.spout.api.material.basic.BasicSolid;
 
 
-public class StreamlandPlugin extends CommonPlugin {
-	Engine engine;
-	@Override
-	public void onEnable() {
-		engine = Spout.getEngine();
-		
-		
-		World mainWorld = engine.loadWorld("streamland", new StreamlandFlatGenerator(10)); 
-		
-		Spout.getEngine().setDefaultWorld(mainWorld);
-		if (mainWorld.getAge() <= 0) {
-			mainWorld.setSpawnPoint(new Transform(new Point(mainWorld, 1, 3, 1), Quaternion.IDENTITY, Vector3.ONE));
-		}
-		
-	}
 
-	@Override
-	public void onDisable() {
-		// TODO Auto-generated method stub
-		
-	}
-
+public class StreamlandMaterials {
+	public static BlockMaterial GRASS = new BasicSolid("Streamland_Grass", "model://Spout/models/solidGreen.spm");
+	public static BlockMaterial DIRT = new BasicSolid("Streamland_Dirt", "model://Spout/models/solidBrown.spm");
+	public static BlockMaterial STONE = new BasicSolid("Streamland_Dirt", "model://Spout/models/solidGray.spm");
 }
