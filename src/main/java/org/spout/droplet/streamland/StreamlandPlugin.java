@@ -23,33 +23,55 @@
  */
 package org.spout.droplet.streamland;
 
+import org.spout.api.Client;
 import org.spout.api.Engine;
 import org.spout.api.Spout;
 import org.spout.api.geo.World;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
+import org.spout.api.input.Keyboard;
 import org.spout.api.math.Quaternion;
 import org.spout.api.math.Vector3;
 import org.spout.api.plugin.CommonPlugin;
+import org.spout.api.plugin.Platform;
 
+import org.spout.droplet.streamland.command.StreamlandInputExecutor;
 import org.spout.droplet.streamland.generator.StreamlandFlatGenerator;
 
 public class StreamlandPlugin extends CommonPlugin {
-	Engine engine;
+	private static Engine engine;
+	private final StreamlandInputExecutor inputExe = new StreamlandInputExecutor();
+
+	@Override
+	public void onLoad() {
+		engine = Spout.getEngine();
+	}
+
 	@Override
 	public void onEnable() {
-		engine = Spout.getEngine();
-
-		World mainWorld = engine.loadWorld("streamland", new StreamlandFlatGenerator(10));
+		//Create the world
+		World mainWorld = engine.loadWorld("streamland", new StreamlandFlatGenerator(2));
 
 		Spout.getEngine().setDefaultWorld(mainWorld);
 		if (mainWorld.getAge() <= 0) {
-			mainWorld.setSpawnPoint(new Transform(new Point(mainWorld, 1, 3, 1), Quaternion.IDENTITY, Vector3.ONE));
+			mainWorld.setSpawnPoint(new Transform(new Point(mainWorld, 1, 5, 1), Quaternion.IDENTITY, Vector3.ONE));
 		}
+		//Add a spawn command for input
+		if (Spout.getPlatform() == Platform.CLIENT) {
+			//Input
+			engine.getRootCommand().addSubCommand(this, "+spawn_trex").setArgBounds(0, 0).setHelp("Summons the T-Rex!").setExecutor(Platform.CLIENT, inputExe);
+			engine.getRootCommand().addSubCommand(this, "+spawn_dragon").setArgBounds(0, 0).setHelp("Summons the Dragon!").setExecutor(Platform.CLIENT, inputExe);
+			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_E, "spawn_trex");
+			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_R, "spawn_dragon");
+		}
+		//Register events
+		engine.getEventManager().registerEvents(new StreamlandListener(this), this);
+		//Hello World!
+		getLogger().info("v" + getDescription().getVersion() + " enabled.");
 	}
 
 	@Override
 	public void onDisable() {
-		// TODO Auto-generated method stud
+		getLogger().info("disabled.");
 	}
 }

@@ -21,13 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.spout.droplet.streamland.materials;
+package org.spout.droplet.streamland;
 
-import org.spout.api.material.BlockMaterial;
-import org.spout.api.material.basic.BasicSolid;
+import org.spout.api.Client;
+import org.spout.api.Spout;
+import org.spout.api.entity.EntityPrefab;
 
-public class StreamlandMaterials {
-	public static BlockMaterial GRASS = new BasicSolid("Streamland_Grass", "model://Spout/models/solidGreen.spm");
-	public static BlockMaterial DIRT = new BasicSolid("Streamland_Dirt", "model://Spout/models/solidBrown.spm");
-	public static BlockMaterial STONE = new BasicSolid("Streamland_Dirt", "model://Spout/models/solidGray.spm");
+public class StreamlandPrefabs {
+	public static final EntityPrefab TREX;
+	public static final EntityPrefab DRAGON;
+
+	static {
+		if (Spout.getEngine() instanceof Client) {
+			DRAGON = (EntityPrefab) Spout.getFilesystem().getResource("entity://Streamland/entities/dragon/dragon.sep");
+			TREX = (EntityPrefab) Spout.getFilesystem().getResource("entity://Streamland/entities/trex/trex.sep");
+		} else {
+			DRAGON = null;
+			TREX = null;
+		}
+	}
 }

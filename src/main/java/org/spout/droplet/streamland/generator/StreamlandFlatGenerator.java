@@ -30,7 +30,7 @@ import org.spout.api.geo.World;
 import org.spout.api.geo.cuboid.Chunk;
 import org.spout.api.util.cuboid.CuboidShortBuffer;
 
-import org.spout.droplet.streamland.materials.StreamlandMaterials;
+import org.spout.droplet.streamland.material.StreamlandMaterials;
 
 public class StreamlandFlatGenerator implements WorldGenerator {
 	private final int height;
