@@ -6,7 +6,7 @@
 	<name>Streamland</name>
 	<groupId>org.spout.droplet</groupId>
 	<artifactId>streamland</artifactId>
-	<version>dev-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2012</inceptionYear>
 	<description> A simple game for Spout</description>
