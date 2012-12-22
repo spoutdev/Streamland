@@ -27,7 +27,8 @@ import org.spout.api.Client;
 import org.spout.api.Spout;
 import org.spout.api.event.EventHandler;
 import org.spout.api.event.Listener;
-import org.spout.api.event.server.ClientEnableEvent;
+import org.spout.api.event.engine.EngineStartEvent;
+import org.spout.api.plugin.Platform;
 
 import org.spout.droplet.streamland.component.InputComponent;
 
@@ -39,7 +40,9 @@ public class StreamlandListener implements Listener {
 	}
 
 	@EventHandler
-	public void onEngineReady(ClientEnableEvent event) {
-		((Client) Spout.getEngine()).getActivePlayer().add(InputComponent.class);
+	public void onEngineReady(EngineStartEvent event) {
+		if (Spout.getEngine().getPlatform() == Platform.CLIENT) {
+			((Client) Spout.getEngine()).getActivePlayer().add(InputComponent.class);
+		}
 	}
 }

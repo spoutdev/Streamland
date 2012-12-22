@@ -36,7 +36,7 @@ import org.spout.api.plugin.CommonPlugin;
 import org.spout.api.plugin.Platform;
 
 import org.spout.droplet.streamland.command.StreamlandInputExecutor;
-import org.spout.droplet.streamland.generator.StreamlandFlatGenerator;
+import org.spout.droplet.streamland.generator.StreamlandNormalGenerator;
 
 public class StreamlandPlugin extends CommonPlugin {
 	private static Engine engine;
@@ -50,7 +50,7 @@ public class StreamlandPlugin extends CommonPlugin {
 	@Override
 	public void onEnable() {
 		//Create the world
-		World mainWorld = engine.loadWorld("streamland", new StreamlandFlatGenerator(2));
+		World mainWorld = engine.loadWorld("streamland", new StreamlandNormalGenerator());
 
 		Spout.getEngine().setDefaultWorld(mainWorld);
 		if (mainWorld.getAge() <= 0) {
