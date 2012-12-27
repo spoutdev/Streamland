@@ -33,6 +33,7 @@ import org.spout.api.geo.World;
 import org.spout.api.geo.cuboid.Chunk;
 import org.spout.api.math.MathHelper;
 import org.spout.api.math.Vector3;
+import org.spout.api.util.cuboid.CuboidBlockMaterialBuffer;
 import org.spout.api.util.cuboid.CuboidShortBuffer;
 
 import org.spout.droplet.streamland.material.StreamlandMaterials;
@@ -52,7 +53,7 @@ public class StreamlandNormalGenerator implements WorldGenerator {
 	}
 
 	@Override
-	public void generate(CuboidShortBuffer blockData, int x, int y, int z, World world) {
+	public void generate(CuboidBlockMaterialBuffer blockData, int x, int y, int z, World world) {
 		x <<= 4;
 		y <<= 4;
 		z <<= 4;

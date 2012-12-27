@@ -24,9 +24,9 @@
 package org.spout.droplet.streamland.component;
 
 import org.spout.api.Spout;
-import org.spout.api.component.implementation.CameraComponent;
+import org.spout.api.component.impl.CameraComponent;
 import org.spout.api.component.type.EntityComponent;
-import org.spout.api.component.implementation.TransformComponent;
+import org.spout.api.component.impl.TransformComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.entity.state.PlayerInputState;
 import org.spout.api.geo.discrete.Transform;
