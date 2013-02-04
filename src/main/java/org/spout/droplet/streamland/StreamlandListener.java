@@ -43,7 +43,7 @@ public class StreamlandListener implements Listener {
 	public void onEngineReady(EngineStartEvent event) {
 		if (Spout.getEngine().getPlatform() == Platform.CLIENT) {
 			final Client client = (Client) Spout.getEngine();
-			((Client) Spout.getEngine()).getInputManager().addInputExecutors(new StreamlandInputExecutor(client.getActivePlayer()));
+			client.getInputManager().addInputExecutors(new StreamlandInputExecutor(client.getActivePlayer()));
 		}
 	}
 }
