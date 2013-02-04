@@ -36,6 +36,7 @@ import org.spout.api.component.impl.SceneComponent;
 import org.spout.api.entity.Entity;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
+import org.spout.api.model.Model;
 
 import org.spout.droplet.streamland.StreamlandPrefabs;
 import org.spout.droplet.streamland.effect.RandomColorizerEntityEffect;
@@ -48,21 +49,35 @@ public class StreamlandCommandExecutor implements CommandExecutor {
 		Entity toSpawn;
 		if (name.equalsIgnoreCase("+spawn_trex")) {
 			Spout.log("Spawning T-Rex!");
+			//Colorize me!
 			toSpawn = StreamlandPrefabs.TREX.createEntity(player.getScene().getPosition());
+			toSpawn.get(ModelHolderComponent.class).getModels().get(0).getRenderMaterial().addEntityEffect(new RandomColorizerEntityEffect());
 		} else if (name.equalsIgnoreCase("+spawn_dragon")) {
-			Spout.log("Spawning Dragon!");
-			toSpawn = StreamlandPrefabs.DRAGON.createEntity(player.getScene().getPosition());
+			Spout.log("Spawning Blue-Eyes!");
+			toSpawn = player.getWorld().createEntity(player.getScene().getPosition(), ModelHolderComponent.class);
+			final ModelHolderComponent models = toSpawn.get(ModelHolderComponent.class);
+			//body
+			models.addModel((Model) Spout.getFilesystem().getResource("model://Streamland/entities/blueeyes/body.spm"));
+			//wings
+			models.addModel((Model) Spout.getFilesystem().getResource("model://Streamland/entities/blueeyes/wings.spm"));
+		} else if (name.equalsIgnoreCase("+spawn_chocobo")) {
+			Spout.log("Spawning Chocobo!");
+			toSpawn = player.getWorld().createEntity(player.getScene().getPosition(), ModelHolderComponent.class);
+			final ModelHolderComponent models = toSpawn.get(ModelHolderComponent.class);
+			//body
+			models.addModel((Model) Spout.getFilesystem().getResource("model://Streamland/entities/chocobo/body.spm"));
+			//extensions
+			models.addModel((Model) Spout.getFilesystem().getResource("model://Streamland/entities/chocobo/extensions.spm"));
+			//eyes
+			models.addModel((Model) Spout.getFilesystem().getResource("model://Streamland/entities/chocobo/eyes.spm"));
 		} else {
 			throw new UnsupportedOperationException();
 		}
-
-		final SceneComponent scene = toSpawn.add(SceneComponent.class);
+		final SceneComponent scene = toSpawn.getScene();
 		scene
 				.setShape(10f, new BoxShape(5f, 5f, 5f))
 				.setFriction(1f)
 				.setRestitution(0.1f);
-		//Colorize me!
-		toSpawn.get(ModelHolderComponent.class).getModels().get(0).getRenderMaterial().addEntityEffect(new RandomColorizerEntityEffect());
 		player.getWorld().spawnEntity(toSpawn);
 	}
 }

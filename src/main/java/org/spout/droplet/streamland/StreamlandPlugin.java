@@ -61,8 +61,10 @@ public class StreamlandPlugin extends CommonPlugin {
 			//Input
 			engine.getRootCommand().addSubCommand(this, "+spawn_trex").setArgBounds(0, 0).setHelp("Summons the T-Rex!").setExecutor(Platform.CLIENT, inputExe);
 			engine.getRootCommand().addSubCommand(this, "+spawn_dragon").setArgBounds(0, 0).setHelp("Summons the Dragon!").setExecutor(Platform.CLIENT, inputExe);
+			engine.getRootCommand().addSubCommand(this, "+spawn_chocobo").setArgBounds(0, 0).setHelp("Summons the Chocobo!").setExecutor(Platform.CLIENT, inputExe);
 			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_E, "spawn_trex");
 			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_R, "spawn_dragon");
+			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_T, "spawn_chocobo");
 		}
 		//Register events
 		engine.getEventManager().registerEvents(new StreamlandListener(this), this);
