@@ -64,6 +64,8 @@ public class StreamlandPlugin extends CommonPlugin {
 			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_E, "spawn_trex");
 			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_R, "spawn_dragon");
 		}
+		//Register events
+		engine.getEventManager().registerEvents(new StreamlandListener(this), this);
 		//Hello World!
 		getLogger().info("v" + getDescription().getVersion() + " enabled.");
 	}
