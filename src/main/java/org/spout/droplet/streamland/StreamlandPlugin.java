@@ -67,7 +67,7 @@ public class StreamlandPlugin extends CommonPlugin {
 		//Register events
 		engine.getEventManager().registerEvents(new StreamlandListener(this), this);
 		//Hello World!
-		getLogger().info("v" + getDescription().getVersion() + " enabled.");
+		getLogger().info("enabled.");
 	}
 
 	@Override
