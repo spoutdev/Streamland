@@ -6,10 +6,10 @@
 	<name>Streamland</name>
 	<groupId>org.spout.droplet</groupId>
 	<artifactId>streamland</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2012</inceptionYear>
-	<description> A simple game for Spout</description>
+	<description> A simple game for Spout.</description>
 
 	<!-- Build properties -->
 	<properties>
@@ -38,9 +38,9 @@
 
 	<!-- Source code access -->
 	<scm>
-		<developerConnection>scm:git:git@github.com:SpoutDev/Streamland.git</developerConnection>
-		<connection>scm:git:git://github.com/SpoutDev/Streamland.git</connection>
-		<url>https://github.com/SpoutDev/Streamland</url>
+		<developerConnection>scm:git:git@github.com:Droplet/Streamland.git</developerConnection>
+		<connection>scm:git:git://github.com/Droplet/Streamland.git</connection>
+		<url>https://github.com/Droplet/Streamland</url>
 	</scm>
 
 	<!-- Build server -->

@@ -1,6 +1,0 @@
-GL30:
-    Vertex: file://Streamland/shaders/random.330.vert
-    Fragment: file://Streamland/shaders/uniformRandomVertexColorShader.330.frag
-GL20:
-    Vertex: file://Streamland/shaders/random.120.vert
-    Fragment: file://Streamland/shaders/uniformRandomVertexColorShader.120.frag

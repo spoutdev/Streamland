@@ -1,4 +1,4 @@
-Shader: shader://Streamland/shaders/uniformColorShader.ssf
+Shader: shader://Spout/shaders/diffuse.ssf
 
 MaterialParams:
     Color: color(1,1,1,1)
