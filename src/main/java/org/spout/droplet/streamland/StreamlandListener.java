@@ -30,7 +30,7 @@ import org.spout.api.event.Listener;
 import org.spout.api.event.engine.EngineStartEvent;
 import org.spout.api.plugin.Platform;
 
-import org.spout.droplet.streamland.component.InputComponent;
+import org.spout.droplet.streamland.command.StreamlandInputExecutor;
 
 public class StreamlandListener implements Listener {
 	private final StreamlandPlugin plugin;
@@ -42,7 +42,8 @@ public class StreamlandListener implements Listener {
 	@EventHandler
 	public void onEngineReady(EngineStartEvent event) {
 		if (Spout.getEngine().getPlatform() == Platform.CLIENT) {
-			((Client) Spout.getEngine()).getActivePlayer().add(InputComponent.class);
+			final Client client = (Client) Spout.getEngine();
+			((Client) Spout.getEngine()).getInputManager().addInputExecutors(new StreamlandInputExecutor(client.getActivePlayer()));
 		}
 	}
 }

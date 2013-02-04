@@ -23,7 +23,6 @@
  */
 package org.spout.droplet.streamland.generator;
 
-import org.spout.api.generator.GeneratorPopulator;
 import org.spout.api.generator.Populator;
 import org.spout.api.generator.WorldGenerator;
 import org.spout.api.geo.World;
@@ -60,11 +59,6 @@ public class StreamlandFlatGenerator implements WorldGenerator {
 	@Override
 	public Populator[] getPopulators() {
 		return new Populator[0];
-	}
-
-	@Override
-	public GeneratorPopulator[] getGeneratorPopulators() {
-		return new GeneratorPopulator[0];
 	}
 
 	@Override

@@ -23,47 +23,52 @@
  */
 package org.spout.droplet.streamland.command;
 
-import com.bulletphysics.collision.shapes.BoxShape;
-
-import org.spout.api.Client;
-import org.spout.api.Spout;
-import org.spout.api.command.Command;
-import org.spout.api.command.CommandContext;
-import org.spout.api.command.CommandExecutor;
-import org.spout.api.command.CommandSource;
-import org.spout.api.component.impl.ModelComponent;
-import org.spout.api.component.impl.PhysicsComponent;
-import org.spout.api.entity.Entity;
+import org.spout.api.component.impl.CameraComponent;
+import org.spout.api.component.impl.SceneComponent;
 import org.spout.api.entity.Player;
-import org.spout.api.exception.CommandException;
+import org.spout.api.entity.state.PlayerInputState;
+import org.spout.api.geo.discrete.Transform;
+import org.spout.api.input.InputExecutor;
+import org.spout.api.math.QuaternionMath;
+import org.spout.api.math.Vector3;
 
-import org.spout.droplet.streamland.StreamlandPrefabs;
-import org.spout.droplet.streamland.effect.RandomColorizerEntityEffect;
+public class StreamlandInputExecutor implements InputExecutor {
+	private Player player;
+	private CameraComponent camera;
+	private float speed = 50;
 
-public class StreamlandInputExecutor implements CommandExecutor {
+	public StreamlandInputExecutor(Player player) {
+		this.player = player;
+		camera = player.get(CameraComponent.class);
+	}
+
 	@Override
-	public void processCommand(CommandSource source, Command command, CommandContext args) throws CommandException {
-		final Player player = ((Client) Spout.getEngine()).getActivePlayer();
-		final String name = command.getPreferredName();
-		Entity toSpawn;
-		if (name.equalsIgnoreCase("+spawn_trex")) {
-			Spout.log("Spawning T-Rex!");
-			toSpawn = StreamlandPrefabs.TREX.createEntity(player.getTransform().getPosition());
-		} else if (name.equalsIgnoreCase("+spawn_dragon")) {
-			Spout.log("Spawning Dragon!");
-			toSpawn = StreamlandPrefabs.DRAGON.createEntity(player.getTransform().getPosition());
-		} else {
-			throw new UnsupportedOperationException();
+	public void execute(float dt) {
+		PlayerInputState inputState = player.input();
+		SceneComponent sc = player.getScene();
+		Transform ts = sc.getTransform(); //TODO: Maybe need getTransformLive?
+
+		Vector3 offset = Vector3.ZERO;
+		if (inputState.getForward()) {
+			offset = offset.subtract(ts.forwardVector().multiply(speed).multiply(dt));
+		}
+		if (inputState.getBackward()) {
+			offset = offset.add(ts.forwardVector().multiply(speed).multiply(dt));
+		}
+		if (inputState.getLeft()) {
+			offset = offset.subtract(ts.rightVector().multiply(speed).multiply(dt));
+		}
+		if (inputState.getRight()) {
+			offset = offset.add(ts.rightVector().multiply(speed).multiply(dt));
+		}
+		if (inputState.getJump()) {
+			offset = offset.add(ts.upVector().multiply(speed).multiply(dt));
+		}
+		if (inputState.getCrouch()) {
+			offset = offset.subtract(ts.upVector().multiply(speed).multiply(dt));
 		}
 
-		final PhysicsComponent physics = toSpawn.add(PhysicsComponent.class);
-		physics.setMass(100f);
-		physics.setCollisionShape(new BoxShape(5f, 5f, 5f));
-		physics.setFriction(1f);
-		physics.setDamping(.5f, 0f);
-		physics.setRestitution(0.1f);
-		//Colorize me!
-		toSpawn.get(ModelComponent.class).getModel().getRenderMaterial().addEntityEffect(new RandomColorizerEntityEffect());
-		player.getWorld().spawnEntity(toSpawn);
+		ts.translateAndSetRotation(offset, QuaternionMath.rotation(inputState.pitch(), inputState.yaw(), ts.getRotation().getRoll()));
+		sc.setTransform(ts);
 	}
 }

@@ -35,12 +35,12 @@ import org.spout.api.math.Vector3;
 import org.spout.api.plugin.CommonPlugin;
 import org.spout.api.plugin.Platform;
 
-import org.spout.droplet.streamland.command.StreamlandInputExecutor;
+import org.spout.droplet.streamland.command.StreamlandCommandExecutor;
 import org.spout.droplet.streamland.generator.StreamlandNormalGenerator;
 
 public class StreamlandPlugin extends CommonPlugin {
 	private static Engine engine;
-	private final StreamlandInputExecutor inputExe = new StreamlandInputExecutor();
+	private final StreamlandCommandExecutor inputExe = new StreamlandCommandExecutor();
 
 	@Override
 	public void onLoad() {
@@ -64,8 +64,6 @@ public class StreamlandPlugin extends CommonPlugin {
 			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_E, "spawn_trex");
 			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_R, "spawn_dragon");
 		}
-		//Register events
-		engine.getEventManager().registerEvents(new StreamlandListener(this), this);
 		//Hello World!
 		getLogger().info("v" + getDescription().getVersion() + " enabled.");
 	}

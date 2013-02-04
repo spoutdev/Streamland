@@ -26,15 +26,13 @@ package org.spout.droplet.streamland.generator;
 import net.royawesome.jlibnoise.NoiseQuality;
 import net.royawesome.jlibnoise.module.source.Perlin;
 
-import org.spout.api.generator.GeneratorPopulator;
 import org.spout.api.generator.Populator;
 import org.spout.api.generator.WorldGenerator;
 import org.spout.api.geo.World;
 import org.spout.api.geo.cuboid.Chunk;
-import org.spout.api.math.MathHelper;
+import org.spout.api.math.GenericMath;
 import org.spout.api.math.Vector3;
 import org.spout.api.util.cuboid.CuboidBlockMaterialBuffer;
-import org.spout.api.util.cuboid.CuboidShortBuffer;
 
 import org.spout.droplet.streamland.material.StreamlandMaterials;
 
@@ -64,8 +62,8 @@ public class StreamlandNormalGenerator implements WorldGenerator {
 		final int sizeZ = size.getFloorZ();
 		for (int xx = 0; xx < sizeX; xx++) {
 			for (int zz = 0; zz < sizeZ; zz++) {
-				final int landHeight = MathHelper.floor(PERLIN.GetValue(x + xx, 0, z + zz) * HEIGHT_HALF_DIFF + HEIGHT_HALF_DIFF + MIN_HEIGHT);
-				final int dirtHeight = MathHelper.floor((hash(x + xx, z + zz) >> 8 & 0xF) / 15f * 3) + 1;
+				final int landHeight = GenericMath.floor(PERLIN.GetValue(x + xx, 0, z + zz) * HEIGHT_HALF_DIFF + HEIGHT_HALF_DIFF + MIN_HEIGHT);
+				final int dirtHeight = GenericMath.floor((hash(x + xx, z + zz) >> 8 & 0xF) / 15f * 3) + 1;
 				for (int yy = 0; yy < sizeY; yy++) {
 					if (y + yy <= landHeight) {
 						if (y + yy == landHeight) {
@@ -100,11 +98,6 @@ public class StreamlandNormalGenerator implements WorldGenerator {
 	@Override
 	public Populator[] getPopulators() {
 		return new Populator[0];
-	}
-
-	@Override
-	public GeneratorPopulator[] getGeneratorPopulators() {
-		return new GeneratorPopulator[0];
 	}
 
 	@Override
