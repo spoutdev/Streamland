@@ -29,11 +29,11 @@ import org.spout.api.Spout;
 import org.spout.api.geo.World;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
+import org.spout.api.input.Binding;
 import org.spout.api.input.Keyboard;
 import org.spout.api.math.Quaternion;
 import org.spout.api.math.Vector3;
 import org.spout.api.plugin.CommonPlugin;
-import org.spout.api.plugin.Platform;
 
 import org.spout.droplet.streamland.command.StreamlandCommandExecutor;
 import org.spout.droplet.streamland.generator.StreamlandNormalGenerator;
@@ -44,7 +44,7 @@ public class StreamlandPlugin extends CommonPlugin {
 
 	@Override
 	public void onLoad() {
-		engine = Spout.getEngine();
+		engine = getEngine();
 	}
 
 	@Override
@@ -52,19 +52,20 @@ public class StreamlandPlugin extends CommonPlugin {
 		//Create the world
 		World mainWorld = engine.loadWorld("streamland", new StreamlandNormalGenerator());
 
-		Spout.getEngine().setDefaultWorld(mainWorld);
+		engine.setDefaultWorld(mainWorld);
 		if (mainWorld.getAge() <= 0) {
 			mainWorld.setSpawnPoint(new Transform(new Point(mainWorld, 1, 5, 1), Quaternion.IDENTITY, Vector3.ONE));
 		}
 		//Add a spawn command for input
-		if (Spout.getPlatform() == Platform.CLIENT) {
+		if (getEngine() instanceof Client) {
+                        Client client = (Client) engine;
 			//Input
-			engine.getRootCommand().addSubCommand(this, "+spawn_trex").setArgBounds(0, 0).setHelp("Summons the T-Rex!").setExecutor(Platform.CLIENT, inputExe);
-			engine.getRootCommand().addSubCommand(this, "+spawn_dragon").setArgBounds(0, 0).setHelp("Summons the Dragon!").setExecutor(Platform.CLIENT, inputExe);
-			engine.getRootCommand().addSubCommand(this, "+spawn_chocobo").setArgBounds(0, 0).setHelp("Summons the Chocobo!").setExecutor(Platform.CLIENT, inputExe);
-			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_E, "spawn_trex");
-			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_R, "spawn_dragon");
-			((Client) Spout.getEngine()).getInputManager().bind(Keyboard.KEY_T, "spawn_chocobo");
+			engine.getRootCommand().addSubCommand(this, "+spawn_trex").setArgBounds(0, 0).setHelp("Summons the T-Rex!").setExecutor(inputExe);
+			engine.getRootCommand().addSubCommand(this, "+spawn_dragon").setArgBounds(0, 0).setHelp("Summons the Dragon!").setExecutor(inputExe);
+			engine.getRootCommand().addSubCommand(this, "+spawn_chocobo").setArgBounds(0, 0).setHelp("Summons the Chocobo!").setExecutor(inputExe);
+			client.getInputManager().bind(new Binding("spawn_trex", Keyboard.KEY_E));
+			client.getInputManager().bind(new Binding("spawn_dragon", Keyboard.KEY_R));
+			client.getInputManager().bind(new Binding("spawn_chocobo", Keyboard.KEY_T));
 		}
 		//Register events
 		engine.getEventManager().registerEvents(new StreamlandListener(this), this);
