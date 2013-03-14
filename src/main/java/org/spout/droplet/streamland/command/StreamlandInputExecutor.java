@@ -42,6 +42,7 @@ public class StreamlandInputExecutor implements InputExecutor {
 		camera = player.get(CameraComponent.class);
 	}
 
+	@Override
 	public void execute(float dt, Transform tranform) {
 		PlayerInputState inputState = player.input();
 		SceneComponent sc = player.getScene();

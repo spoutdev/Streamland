@@ -58,7 +58,7 @@ public class StreamlandPlugin extends CommonPlugin {
 		}
 		//Add a spawn command for input
 		if (getEngine() instanceof Client) {
-                        Client client = (Client) engine;
+			Client client = (Client) engine;
 			//Input
 			engine.getRootCommand().addSubCommand(this, "+spawn_trex").setArgBounds(0, 0).setHelp("Summons the T-Rex!").setExecutor(inputExe);
 			engine.getRootCommand().addSubCommand(this, "+spawn_dragon").setArgBounds(0, 0).setHelp("Summons the Dragon!").setExecutor(inputExe);
